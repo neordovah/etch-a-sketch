@@ -60,6 +60,10 @@ body {
     transform: scale(1.1);
 }
 
+.backgroundColor {
+    background-color: black;
+}
+
 .divClass {
     border: solid 1px lightgray;
     box-sizing: border-box;

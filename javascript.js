@@ -1,9 +1,15 @@
 let sizeValue = 16;
+let toggle = 1;
 const grid = document.getElementById("grid");
 let gridElement = [];
 const minus = document.getElementById("minus");
 const plus = document.getElementById("plus");
 const sizeValueDisplay = document.getElementById("sizeValue");
+const clearButton = document.getElementById("clear");
+const eraserButton = document.getElementById("eraser");
+const penButton = document.getElementById("pen");
+
+let mouseClickToggle = 0;
 
 
 function removeGridMinus (sizeValue) {
@@ -20,16 +26,31 @@ function removeGridPlus (sizeValue) {
         }
 }
 
-function startGrid () {
-    for (let i = 0; i < sizeValue * sizeValue; i++) {
-        gridElement = document.createElement("div");
-        gridElement.classList.add("gridElement16");
-        gridElement.classList.add("divClass");
-        grid.appendChild(gridElement);
-    }
+function changeBackgroundElement () {
+    allElements = document.getElementsByClassName("divClass");
+
+    Array.from(allElements).forEach(element => {
+        element.addEventListener("mousemove", () => {
+            if (toggle == 1 && mouseClickToggle == 1) {
+                element.classList.add("backgroundColor");
+            }
+            else if (toggle == 0 && mouseClickToggle == 1){
+                element.classList.remove("backgroundColor");
+            }
+        })
+    });
 }
 
+    grid.addEventListener("mousedown", () => {
+        mouseClickToggle = 1;
+    })
+    grid.addEventListener("mouseup", () => {
+        mouseClickToggle = 0;
+    })
+
+
 function resizeGrid (sizeValue, increment) {
+    toggle = 1;
     if (increment == 1) {    
         removeGridPlus(sizeValue);
     }
@@ -57,6 +78,7 @@ function resizeGrid (sizeValue, increment) {
             }
             grid.appendChild(gridElement);
     }
+    changeBackgroundElement();
 }
 
 minus.addEventListener('click', () => {
@@ -79,7 +101,22 @@ plus.addEventListener('click', () => {
     sizeValueDisplay.innerHTML = sizeValue + " x " + sizeValue;
 })
 
-startGrid();
+clearButton.addEventListener('click', () => {
+    let increment = 0;
+    removeGridMinus(sizeValue - 16);
+    resizeGrid(sizeValue);
+})
+
+eraserButton.addEventListener("click", () => {
+    toggle = 0;
+})
+
+penButton.addEventListener("click", () => {
+    toggle = 1;
+})
+
+
+resizeGrid(sizeValue);
 
 
 
