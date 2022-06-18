@@ -41,10 +41,12 @@ function changeBackgroundElement () {
     });
 }
 
+const container = document.getElementById("container");
+
     grid.addEventListener("mousedown", () => {
         mouseClickToggle = 1;
     })
-    grid.addEventListener("mouseup", () => {
+    container.addEventListener("mouseup", () => {
         mouseClickToggle = 0;
     })
 
